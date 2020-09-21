@@ -24,7 +24,7 @@ def gits_pr_update(args):
                                          stdout=PIPE, stderr=PIPE)
         stdout, stderr = process11.communicate()
         #print(stdout)
-        if (stdout is not None):
+        if (format(stdout) is not None):
             print("Note: Please commit uncommitted changes")
             #git stash
             exit()
