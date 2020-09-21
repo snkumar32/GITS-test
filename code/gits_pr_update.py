@@ -47,15 +47,18 @@ def gits_pr_update(args):
                 print("Set --upstream")
                 exit()
 
+            print("Checkout master...")
             process4 = subprocess.Popen(['git', 'checkout', 'master'], stdout=PIPE, stderr=PIPE)
             stdout, stderr = process4.communicate()
-            print(format(stdout))
+            print(stdout.decode('utf-8'))
+            print("Pull Changes from Upstream Master...")
             process5 = subprocess.Popen(['git', 'pull', 'upstream', 'master'], stdout=PIPE, stderr=PIPE)
             stdout, stderr = process5.communicate()
-            print(format(stdout))
+            print(stdout.decode('utf-8'))
+            print("Push changes to local master...")
             process6 = subprocess.Popen(['git', 'push', 'origin', 'master'], stdout=PIPE, stderr=PIPE)
             stdout, stderr = process6.communicate()
-            print(format(stdout))
+            print(stdout.decode('utf-8'))
 
         else:
             exit()
