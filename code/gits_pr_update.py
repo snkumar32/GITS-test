@@ -19,8 +19,8 @@ def gits_pr_update(args):
         Untracked_file_check.append("grep")
         Untracked_file_check.append("Untracked files")
 
-        process1 = subprocess.Popen(Untracked_file_check, stdout=PIPE, stderr=PIPE)
-        process11 = subprocess.Popen(Untracked_file_check_status, stdin=process1.stdout,
+        process1 = subprocess.Popen(Untracked_file_check_status, stdout=PIPE, stderr=PIPE)
+        process11 = subprocess.Popen(Untracked_file_check, stdin=process1.stdout,
                                          stdout=PIPE, stderr=PIPE)
         stdout, stderr = process11.communicate()
         print(format(stdout))
