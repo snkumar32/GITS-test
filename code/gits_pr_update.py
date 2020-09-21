@@ -23,7 +23,7 @@ def gits_pr_update(args):
         process11 = subprocess.Popen(Untracked_file_check_status, stdin=process1.stdout,
                                          stdout=PIPE, stderr=PIPE)
         stdout, stderr = process11.communicate()
-        #print(stdout)
+        print(format(stdout))
         if (format(stdout) is not None):
             print("Note: Please commit uncommitted changes")
             #git stash
