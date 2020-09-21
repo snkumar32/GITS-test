@@ -29,7 +29,7 @@ def gits_pr_update(args):
             #git stash
             exit()
 
-        print("Checking if upstream is set..")
+        print("Checking if upstream is set..\n")
         process2 = subprocess.Popen(['git', 'remote', '-vv'], stdout=PIPE, stderr=PIPE)
         process21 = subprocess.Popen(['grep', 'upstream'], stdin=process2.stdout, stdout=PIPE, stderr=PIPE)
         stdout, stderr = process21.communicate()
