@@ -6,7 +6,7 @@ from subprocess import Popen, PIPE
 
 
 def gits_pr_update(args):
-    print(args)
+   #print(args)
     print("Hello from GITS command line tools- PR Update")
 
     flag = 0
@@ -23,16 +23,14 @@ def gits_pr_update(args):
         process11 = subprocess.Popen(Untracked_file_check_status, stdin=process1.stdout,
                                          stdout=PIPE, stderr=PIPE)
         stdout, stderr = process11.communicate()
-
+        #print(stdout)
         if (stdout is not None):
-            print("Caution u have uncommited changes")
-            flag = 1
-             # git stash can be implemented at this point
+            print("Note: Please commit uncommitted changes")
+            #git stash
+            exit()
 
-        print("Note: Please commit uncommited changes. Would you like to continue with PR-udate?")
-        input1 = input("[yes/no]")
         if flag == 0:
-
+            print("Checking if upstream is set...")
             process2 = subprocess.Popen(['git', 'remote', '-vv'], stdout=PIPE, stderr=PIPE)
             process21 = subprocess.Popen(['grep', 'upstream'], stdin=process1.stdout,
                                      stdout=PIPE, stderr=PIPE)
@@ -56,7 +54,7 @@ def gits_pr_update(args):
             stdout, stderr = process6.communicate()
 
         else:
-            print("message")
+            exit()
 
     except Exception as e:
         print("ERROR: gits sync command caught an exception")
