@@ -1,5 +1,5 @@
 
-# GITS - TEST
+# GITS - TEST2
 ### GIT Simplified
 
 ![GitHub](https://img.shields.io/github/license/amolgautam25/GITS)
