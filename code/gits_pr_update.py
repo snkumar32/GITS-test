@@ -14,17 +14,18 @@ def gits_pr_update(args):
         Untracked_file_check_status = list()
         Untracked_file_check_status.append("git")
         Untracked_file_check_status.append("status")
+        Untracked_file_check_status.append("--porcelain")
 
-        Untracked_file_check = list()
-        Untracked_file_check.append("grep")
-        Untracked_file_check.append("Untracked files")
+        #Untracked_file_check = list()
+        #Untracked_file_check.append("grep")
+        #Untracked_file_check.append("Untracked files")
 
         process1 = subprocess.Popen(Untracked_file_check_status, stdout=PIPE, stderr=PIPE)
-        process11 = subprocess.Popen(Untracked_file_check, stdin=process1.stdout,
-                                         stdout=PIPE, stderr=PIPE)
-        stdout, stderr = process11.communicate()
+        #process11 = subprocess.Popen(Untracked_file_check, stdin=process1.stdout, stdout=PIPE, stderr=PIPE)
+
+        stdout, stderr = process1.communicate()
         print(format(stdout))
-        if (format(stdout) is not None):
+        if (stdout is not None):
             print("Note: Please commit uncommitted changes")
             #git stash
             exit()
