@@ -49,10 +49,13 @@ def gits_pr_update(args):
 
             process4 = subprocess.Popen(['git', 'checkout', 'master'], stdout=PIPE, stderr=PIPE)
             stdout, stderr = process4.communicate()
+            print(format(stdout))
             process5 = subprocess.Popen(['git', 'pull', 'upstream', 'master'], stdout=PIPE, stderr=PIPE)
             stdout, stderr = process5.communicate()
+            print(format(stdout))
             process6 = subprocess.Popen(['git', 'push', 'origin', 'master'], stdout=PIPE, stderr=PIPE)
             stdout, stderr = process6.communicate()
+            print(format(stdout))
 
         else:
             exit()
