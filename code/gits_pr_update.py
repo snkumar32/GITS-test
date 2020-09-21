@@ -33,7 +33,7 @@ def gits_pr_update(args):
         if flag == 0:
             print("Checking if upstream is set...")
             process2 = subprocess.Popen(['git', 'remote', '-vv'], stdout=PIPE, stderr=PIPE)
-            process21 = subprocess.Popen(['grep', 'upstream'], stdin=process1.stdout,
+            process21 = subprocess.Popen(['grep', 'upstream'], stdin=process2.stdout,
                                      stdout=PIPE, stderr=PIPE)
             stdout, stderr = process21.communicate()
 
