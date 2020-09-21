@@ -70,7 +70,7 @@ def gits_pr_update_func(args):
         push_origin.append("master")
         process6 = subprocess.Popen(push_origin, stdout=PIPE, stderr=PIPE)
         stdout, stderr = process6.communicate()
-        print(stdout.decode('utf-8'))
+        print(stdout.decode('utf-8'), stderr.decode('utf-8'))
 
     except Exception as e:
         print("ERROR: gits sync command caught an exception")
