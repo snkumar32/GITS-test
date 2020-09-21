@@ -18,6 +18,7 @@ def gits_pr_update(args):
         print("Set --upstream")
         exit()
 
+
     checkout = os.popen("git checkout master").read()
     upstream_pull = os.popen("git pull upstream master").read()
     origin_push = os.popen("git push origin master").read()
