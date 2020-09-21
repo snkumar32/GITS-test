@@ -15,12 +15,7 @@ def gits_pr_update(args):
         Untracked_file_check_status.append("status")
         Untracked_file_check_status.append("--porcelain")
 
-        #Untracked_file_check = list()
-        #Untracked_file_check.append("grep")
-        #Untracked_file_check.append("Untracked files")
-
         process1 = subprocess.Popen(Untracked_file_check_status, stdout=PIPE, stderr=PIPE)
-        #process11 = subprocess.Popen(Untracked_file_check, stdin=process1.stdout, stdout=PIPE, stderr=PIPE)
 
         stdout, stderr = process1.communicate()
         #print(format(stdout))
@@ -29,7 +24,7 @@ def gits_pr_update(args):
             #git stash
             exit()
 
-        print("Checking if upstream is set..\n")
+        print("Checking if upstream is set..")
         process2 = subprocess.Popen(['git', 'remote', '-vv'], stdout=PIPE, stderr=PIPE)
         process21 = subprocess.Popen(['grep', 'upstream'], stdin=process2.stdout, stdout=PIPE, stderr=PIPE)
         stdout, stderr = process21.communicate()
@@ -44,16 +39,32 @@ def gits_pr_update(args):
             print("Set --upstream")
             exit()
 
-        print("Checkout master..")
-        process4 = subprocess.Popen(['git', 'checkout', 'master'], stdout=PIPE, stderr=PIPE)
+        print("\nCheckout master..")
+        checkout_master = list()
+        checkout_master.append("git")
+        checkout_master.append("checkout")
+        checkout_master.append("checkout")
+        process4 = subprocess.Popen(checkout_master, stdout=PIPE, stderr=PIPE)
         stdout, stderr = process4.communicate()
         print(stdout.decode('utf-8'))
+
         print("Pull Changes from Upstream Master..")
-        process5 = subprocess.Popen(['git', 'pull', 'upstream', 'master'], stdout=PIPE, stderr=PIPE)
+        pull_upstream = list()
+        pull_upstream.append("git")
+        pull_upstream.append("pull")
+        pull_upstream.append("upstream")
+        pull_upstream.append("master")
+        process5 = subprocess.Popen(pull_upstream, stdout=PIPE, stderr=PIPE)
         stdout, stderr = process5.communicate()
         print(stdout.decode('utf-8'))
+
         print("Push changes to local master..")
-        process6 = subprocess.Popen(['git', 'push', 'origin', 'master'], stdout=PIPE, stderr=PIPE)
+        push_origin = list()
+        push_origin.append("git")
+        push_origin.append("pull")
+        push_origin.append("upstream")
+        push_origin.append("master")
+        process6 = subprocess.Popen(push_origin, stdout=PIPE, stderr=PIPE)
         stdout, stderr = process6.communicate()
         print(stdout.decode('utf-8'))
 
