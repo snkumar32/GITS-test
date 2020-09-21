@@ -2,7 +2,7 @@ import os
 import sys
 import argparse
 from gits_profile import gits_set_profile
-from gits_pr_update import gits_pr_update
+from gits_pr_update import gits_pr_update_func
 
 parser = argparse.ArgumentParser()
 subparsers = parser.add_subparsers()
@@ -15,7 +15,7 @@ gits_profile_subparser.add_argument('--name', required=True, help='name to be us
 
 gits_pr_subparser= subparsers.add_parser('sync', help='sync help')
 print("test")
-gits_pr_subparser.set_defaults(func=gits_pr_update)
+gits_pr_subparser.set_defaults(func=gits_pr_update_func)
 gits_pr_subparser.add_argument('--upstream', nargs='?')
 
 args = parser.parse_args()

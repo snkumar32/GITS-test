@@ -1,39 +1,43 @@
-import os
-import sys
 import subprocess
-import argparse
-from subprocess import Popen, PIPE
+from subprocess import PIPE
 
 
-def gits_pr_update(args):
-   #print(args)
-    #print("Hello from GITS command line tools- PR Update")
-    #flag = 0
+def gits_pr_update_func(args):
+    # print(args)
+    # print("Hello from GITS command line tools- PR Update")
+    # flag = 0
     try:
         Untracked_file_check_status = list()
         Untracked_file_check_status.append("git")
         Untracked_file_check_status.append("status")
         Untracked_file_check_status.append("--porcelain")
 
-        process1 = subprocess.Popen(Untracked_file_check_status, stdout=PIPE, stderr=PIPE)
+        process1 = subprocess.Popen(Untracked_file_check_status,
+                                    stdout=PIPE, stderr=PIPE)
 
         stdout, stderr = process1.communicate()
-        #print(format(stdout))
+        # print(format(stdout))
         if stdout != b'':
             print("Note: Please commit uncommitted changes")
-            #git stash
+            # git stash
             exit()
 
         print("Checking if upstream is set..")
-        process2 = subprocess.Popen(['git', 'remote', '-vv'], stdout=PIPE, stderr=PIPE)
-        process21 = subprocess.Popen(['grep', 'upstream'], stdin=process2.stdout, stdout=PIPE, stderr=PIPE)
+        process2 = subprocess.Popen(['git', 'remote', '-vv'],
+                                    stdout=PIPE, stderr=PIPE)
+        process21 = subprocess.Popen(['grep', 'upstream'],
+                                     stdin=process2.stdout,
+                                     stdout=PIPE, stderr=PIPE)
         stdout, stderr = process21.communicate()
 
         if stdout != b'':
             print("Upstream set")
         elif stdout == b'' and args.upstream:
             print("Setting upstream")
-            process3 = subprocess.Popen(['git', 'remote', 'add', 'upstream', args.upstream], stdout=PIPE, stderr=PIPE)
+            process3 = subprocess.Popen(['git', 'remote', 'add', 'upstream',
+                                         args.upstream],
+                                        stdout=PIPE,
+                                        stderr=PIPE)
             stdout, stderr = process3.communicate()
         else:
             print("Set --upstream")
@@ -68,10 +72,8 @@ def gits_pr_update(args):
         stdout, stderr = process6.communicate()
         print(stdout.decode('utf-8'))
 
-
     except Exception as e:
         print("ERROR: gits sync command caught an exception")
         print("ERROR: {}".format(str(e)))
         return False
-
     return True
