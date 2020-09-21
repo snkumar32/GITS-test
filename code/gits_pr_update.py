@@ -7,9 +7,8 @@ from subprocess import Popen, PIPE
 
 def gits_pr_update(args):
    #print(args)
-    print("Hello from GITS command line tools- PR Update")
-
-    flag = 0
+    #print("Hello from GITS command line tools- PR Update")
+    #flag = 0
     try:
         Untracked_file_check_status = list()
         Untracked_file_check_status.append("git")
@@ -24,44 +23,40 @@ def gits_pr_update(args):
         #process11 = subprocess.Popen(Untracked_file_check, stdin=process1.stdout, stdout=PIPE, stderr=PIPE)
 
         stdout, stderr = process1.communicate()
-        print(format(stdout))
-        if (stdout != b''):
+        #print(format(stdout))
+        if stdout != b'':
             print("Note: Please commit uncommitted changes")
             #git stash
             exit()
 
-        if flag == 0:
-            print("Checking if upstream is set...")
-            process2 = subprocess.Popen(['git', 'remote', '-vv'], stdout=PIPE, stderr=PIPE)
-            process21 = subprocess.Popen(['grep', 'upstream'], stdin=process2.stdout,
-                                     stdout=PIPE, stderr=PIPE)
-            stdout, stderr = process21.communicate()
+        print("Checking if upstream is set..")
+        process2 = subprocess.Popen(['git', 'remote', '-vv'], stdout=PIPE, stderr=PIPE)
+        process21 = subprocess.Popen(['grep', 'upstream'], stdin=process2.stdout, stdout=PIPE, stderr=PIPE)
+        stdout, stderr = process21.communicate()
 
-            if stdout is not None:
-                 print("Upstream set")
-            elif not stdout and args.upstream:
-                print("Setting upstream")
-                process3 = subprocess.Popen(['git', 'remote', 'add', 'upstream'], stdout=PIPE, stderr=PIPE)
-                stdout, stderr = process3.communicate()
-            else:
-                print("Set --upstream")
-                exit()
-
-            print("Checkout master...")
-            process4 = subprocess.Popen(['git', 'checkout', 'master'], stdout=PIPE, stderr=PIPE)
-            stdout, stderr = process4.communicate()
-            print(stdout.decode('utf-8'))
-            print("Pull Changes from Upstream Master...")
-            process5 = subprocess.Popen(['git', 'pull', 'upstream', 'master'], stdout=PIPE, stderr=PIPE)
-            stdout, stderr = process5.communicate()
-            print(stdout.decode('utf-8'))
-            print("Push changes to local master...")
-            process6 = subprocess.Popen(['git', 'push', 'origin', 'master'], stdout=PIPE, stderr=PIPE)
-            stdout, stderr = process6.communicate()
-            print(stdout.decode('utf-8'))
-
+        if stdout != b'':
+            print("Upstream set")
+        elif stdout == b'' and args.upstream:
+            print("Setting upstream")
+            process3 = subprocess.Popen(['git', 'remote', 'add', 'upstream', args.upstream], stdout=PIPE, stderr=PIPE)
+            stdout, stderr = process3.communicate()
         else:
+            print("Set --upstream")
             exit()
+
+        print("Checkout master..")
+        process4 = subprocess.Popen(['git', 'checkout', 'master'], stdout=PIPE, stderr=PIPE)
+        stdout, stderr = process4.communicate()
+        print(stdout.decode('utf-8'))
+        print("Pull Changes from Upstream Master..")
+        process5 = subprocess.Popen(['git', 'pull', 'upstream', 'master'], stdout=PIPE, stderr=PIPE)
+        stdout, stderr = process5.communicate()
+        print(stdout.decode('utf-8'))
+        print("Push changes to local master..")
+        process6 = subprocess.Popen(['git', 'push', 'origin', 'master'], stdout=PIPE, stderr=PIPE)
+        stdout, stderr = process6.communicate()
+        print(stdout.decode('utf-8'))
+
 
     except Exception as e:
         print("ERROR: gits sync command caught an exception")
